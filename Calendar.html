@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<header>
+  <title>
+    Calendar
+  </title>
+</header>
+
+<body>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <div style="margin-bottom: 20px;"><span style="font-size: xx-large; font-weight: 700;">This is Calendar
+        Page</span></div>
+    <span>Year:</span><input style="width: 100px; margin-right: 20px;" type="number" step="1" id="year" />
+    <span>Month:</span><input style="width: 100px; margin-right: 20px;" type="number" step="1" id="month" />
+    <button onclick="show()">Show</button>
+  </div>
+
+  <table id="table1" style="border: 1px solid black; width: 100%; ">
+    <thead>
+      <tr style="height: 50px;">
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thr</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align: center; height: 50px;" id="t0"></td>
+        <td style="text-align: center; height: 50px;" id="t1"></td>
+        <td style="text-align: center; height: 50px;" id="t2"></td>
+        <td style="text-align: center; height: 50px;" id="t3"></td>
+        <td style="text-align: center; height: 50px;" id="t4"></td>
+        <td style="text-align: center; height: 50px;" id="t5"></td>
+        <td style="text-align: center; height: 50px;" id="t6"></td>
+      </tr>
+      <tr>
+        <td style="text-align: center; height: 50px;" id="t7"></td>
+        <td style="text-align: center; height: 50px;" id="t8"></td>
+        <td style="text-align: center; height: 50px;" id="t9"></td>
+        <td style="text-align: center; height: 50px;" id="t10"></td>
+        <td style="text-align: center; height: 50px;" id="t11"></td>
+        <td style="text-align: center; height: 50px;" id="t12"></td>
+        <td style="text-align: center; height: 50px;" id="t13"></td>
+      </tr>
+      <tr>
+        <td style="text-align: center; height: 50px;" id="t14"></td>
+        <td style="text-align: center; height: 50px;" id="t15"></td>
+        <td style="text-align: center; height: 50px;" id="t16"></td>
+        <td style="text-align: center; height: 50px;" id="t17"></td>
+        <td style="text-align: center; height: 50px;" id="t18"></td>
+        <td style="text-align: center; height: 50px;" id="t19"></td>
+        <td style="text-align: center; height: 50px;" id="t20"></td>
+      </tr>
+      <tr>
+        <td style="text-align: center; height: 50px;" id="t21"></td>
+        <td style="text-align: center; height: 50px;" id="t22"></td>
+        <td style="text-align: center; height: 50px;" id="t23"></td>
+        <td style="text-align: center; height: 50px;" id="t24"></td>
+        <td style="text-align: center; height: 50px;" id="t25"></td>
+        <td style="text-align: center; height: 50px;" id="t26"></td>
+        <td style="text-align: center; height: 50px;" id="t27"></td>
+      </tr>
+      <tr>
+        <td style="text-align: center; height: 50px;" id="t28"></td>
+        <td style="text-align: center; height: 50px;" id="t29"></td>
+        <td style="text-align: center; height: 50px;" id="t30"></td>
+        <td style="text-align: center; height: 50px;" id="t31"></td>
+        <td style="text-align: center; height: 50px;" id="t32"></td>
+        <td style="text-align: center; height: 50px;" id="t33"></td>
+        <td style="text-align: center; height: 50px;" id="t34"></td>
+      </tr>
+      <tr>
+        <td style="text-align: center; height: 50px;" id="t35"></td>
+        <td style="text-align: center; height: 50px;" id="t36"></td>
+        <td style="text-align: center; height: 50px;" id="t37"></td>
+        <td style="text-align: center; height: 50px;" id="t38"></td>
+        <td style="text-align: center; height: 50px;" id="t39"></td>
+        <td style="text-align: center; height: 50px;" id="t40"></td>
+        <td style="text-align: center; height: 50px;" id="t41"></td>
+      </tr>
+    </tbody>
+  </table>
+  <script>
+    {
+      document.getElementById(`year`).value = 1;
+      document.getElementById(`month`).value = 1;
+      document.getElementById(`t0`).innerText = "";
+      for (let i = 1; i < 32; i++) {
+        document.getElementById(`t${i}`).innerText = i;
+      }
+      function show() {
+        const monthDay = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        const curYear = document.getElementById("year").value;
+        const curMonth = document.getElementById("month").value;
+        let totalDay = 0;
+
+        for (let i = 1; i < curYear; i++) {
+          totalDay += 365;
+          if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0) {
+            totalDay += 1;
+          }
+        }
+        if ((curYear % 4 == 0 && curYear % 100 != 0) || curYear % 400 == 0) {
+          monthDay[2] += 1;
+        }
+        for (let i = 1; i < curMonth; i++) {
+          totalDay += monthDay[i];
+        }
+
+        for (let i = 0; i < 42; i++) {
+          document.getElementById(`t${i}`).innerText = "";
+        }
+        for (let i = 0; i < monthDay[curMonth]; i++) {
+          document.getElementById(`t${i + (totalDay + 1) % 7}`).innerText = i + 1;
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
